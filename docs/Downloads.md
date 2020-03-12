@@ -7,7 +7,8 @@ To use the commons you can either include dependency into your go file:
 
     ...
     import (
-        ellog "github.com/pip-services3-go/pip-services3-memcached-go/log"
+        memcache "github.com/pip-services3-go/pip-services3-memcached-go/cache"
+        memlock "github.com/pip-services3-go/pip-services3-memcached-go/lock"
     )
 
 ``` 

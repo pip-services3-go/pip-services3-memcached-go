@@ -48,9 +48,9 @@ Example:
       "port", 11211,
     ));
 
-    cache.Open("123", (err) => {
+    err := cache.Open("123")
       ...
-    });
+
 
 	ret, err := cache.Store("123", "key1", []byte("ABC"))
 	if err != nil {

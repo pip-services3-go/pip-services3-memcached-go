@@ -22,7 +22,7 @@ Example:
 - descriptor: "pip-services-test:cache:memcached:default:1.0"
   connection:
     host: "localhost"
-    port: 9200
+    port: 11211
   options:
     timeout: 10000
      
