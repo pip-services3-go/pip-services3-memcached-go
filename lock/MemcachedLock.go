@@ -25,17 +25,17 @@ Configuration parameters:
   - port:                  port number
   - uri:                   resource URI or connection string with all parameters in it
 - options:
-  //- max_size:              maximum number of values stored in this cache (default: 1000)
-  //- max_key_size:          maximum key length (default: 250)
-  //- max_expiration:        maximum expiration duration in milliseconds (default: 2592000)
-  //- max_value:             maximum value length (default: 1048576)
-  //- pool_size:             pool size (default: 5)
-  //- reconnect:             reconnection timeout in milliseconds (default: 10 sec)
-  //- retries:               number of retries (default: 3)
+  - max_size:              maximum number of values stored in this cache (default: 1000)
+  - max_key_size:          maximum key length (default: 250)
+  - max_expiration:        maximum expiration duration in milliseconds (default: 2592000)
+  - max_value:             maximum value length (default: 1048576)
+  - pool_size:             pool size (default: 5)
+  - reconnect:             reconnection timeout in milliseconds (default: 10 sec)
+  - retries:               number of retries (default: 3)
   - timeout:               default caching timeout in milliseconds (default: 1 minute)
-  //- failures:              number of failures before stop retrying (default: 5)
-  //- retry:                 retry timeout in milliseconds (default: 30 sec)
-  //- idle:                  idle timeout before disconnect in milliseconds (default: 5 sec)
+    - failures:              number of failures before stop retrying (default: 5)
+    - retry:                 retry timeout in milliseconds (default: 30 sec)
+    - idle:                  idle timeout before disconnect in milliseconds (default: 5 sec)
 
 References:
 
@@ -49,17 +49,17 @@ Example:
       "port", 11211,
     ));
 
-	err := lock.Open("123")
-	if err != nil {
+    err := lock.Open("123")
+    if err != nil {
       ...
     }
 
-	result, err := lock.TryAcquireLock("123", "key1", 3000)
-	if result {
-		// Processing...
-	}
-	err = lock.ReleaseLock("123", "key1")
-	// Continue...
+    result, err := lock.TryAcquireLock("123", "key1", 3000)
+    if result {
+    	// Processing...
+    }
+    err = lock.ReleaseLock("123", "key1")
+    // Continue...
 */
 type MemcachedLock struct {
 	*clock.Lock
@@ -120,7 +120,7 @@ func (c *MemcachedLock) Configure(config *cconf.ConfigParams) {
 }
 
 // SetReferences method are sets references to dependent components.
-// - references 	references to locate the component dependencies.
+//   - references 	references to locate the component dependencies.
 func (c *MemcachedLock) SetReferences(references cref.IReferences) {
 	c.connectionResolver.SetReferences(references)
 }
@@ -133,7 +133,7 @@ func (c *MemcachedLock) IsOpen() bool {
 
 /// Open method are opens the component.
 // Parameters:
-// - correlationId 	(optional) transaction id to trace execution through call chain.
+//   - correlationId 	(optional) transaction id to trace execution through call chain.
 // Retruns: error or nil no errors occured.
 func (c *MemcachedLock) Open(correlationId string) error {
 	connections, err := c.connectionResolver.ResolveAll(correlationId)
@@ -180,8 +180,8 @@ func (c *MemcachedLock) Open(correlationId string) error {
 
 // Close method are closes component and frees used resources.
 // Parameters:
-// - correlationId 	(optional) transaction id to trace execution through call chain.
-// - callback 			callback function that receives error or nil no errors occured.
+//   - correlationId 	(optional) transaction id to trace execution through call chain.
+//   - callback 			callback function that receives error or nil no errors occured.
 func (c *MemcachedLock) Close(correlationId string) error {
 	c.client = nil
 	return nil
@@ -199,9 +199,9 @@ func (c *MemcachedLock) checkOpened(correlationId string) (state bool, err error
 // TryAcquireLock method are makes a single attempt to acquire a lock by its key.
 // It returns immediately a positive or negative result.
 // Parameters:
-//  - correlationId     (optional) transaction id to trace execution through call chain.
-//  - key               a unique lock key to acquire.
-//  - ttl               a lock timeout (time to live) in milliseconds.
+//    - correlationId     (optional) transaction id to trace execution through call chain.
+//    - key               a unique lock key to acquire.
+//    - ttl               a lock timeout (time to live) in milliseconds.
 //  Returns: a lock result or error.
 func (c *MemcachedLock) TryAcquireLock(correlationId string, key string, ttl int64) (result bool, err error) {
 
@@ -226,8 +226,8 @@ func (c *MemcachedLock) TryAcquireLock(correlationId string, key string, ttl int
 }
 
 // ReleaseLock method are releases prevously acquired lock by its key.
-//  - correlationId     (optional) transaction id to trace execution through call chain.
-//  - key               a unique lock key to release.
+//    - correlationId     (optional) transaction id to trace execution through call chain.
+//    - key               a unique lock key to release.
 //  Returns error or nil for success.
 func (c *MemcachedLock) ReleaseLock(correlationId string, key string) error {
 	state, err := c.checkOpened(correlationId)

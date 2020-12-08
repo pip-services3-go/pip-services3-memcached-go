@@ -18,23 +18,23 @@ The current implementation does not support authentication.
 
 Configuration parameters:
 
-- connection(s):
-  - discovery_key:         (optional) a key to retrieve the connection from IDiscovery
-  - host:                  host name or IP address
-  - port:                  port number
-  - uri:                   resource URI or connection string with all parameters in it
-- options:
-  //- max_size:              maximum number of values stored in this cache (default: 1000)
-  //- max_key_size:          maximum key length (default: 250)
-  //- max_expiration:        maximum expiration duration in milliseconds (default: 2592000)
-  //- max_value:             maximum value length (default: 1048576)
-  //- pool_size:             pool size (default: 5)
-  //- reconnect:             reconnection timeout in milliseconds (default: 10 sec)
-  //- retries:               number of retries (default: 3)
-  - timeout:               default caching timeout in milliseconds (default: 1 minute)
-  //- failures:              number of failures before stop retrying (default: 5)
-  //- retry:                 retry timeout in milliseconds (default: 30 sec)
-  //- idle:                  idle timeout before disconnect in milliseconds (default: 5 sec)
+ - connection(s):
+   - discovery_key:         (optional) a key to retrieve the connection from IDiscovery
+   - host:                  host name or IP address
+   - port:                  port number
+   - uri:                   resource URI or connection string with all parameters in it
+ - options:
+   - max_size:              maximum number of values stored in this cache (default: 1000)
+   - max_key_size:          maximum key length (default: 250)
+   - max_expiration:        maximum expiration duration in milliseconds (default: 2592000)
+   - max_value:             maximum value length (default: 1048576)
+   - pool_size:             pool size (default: 5)
+   - reconnect:             reconnection timeout in milliseconds (default: 10 sec)
+   - retries:               number of retries (default: 3)
+   - timeout:               default caching timeout in milliseconds (default: 1 minute)
+     - failures:              number of failures before stop retrying (default: 5)
+     - retry:                 retry timeout in milliseconds (default: 30 sec)
+     - idle:                  idle timeout before disconnect in milliseconds (default: 5 sec)
 
 References:
 
@@ -52,13 +52,13 @@ Example:
       ...
 
 
-	ret, err := cache.Store("123", "key1", []byte("ABC"))
-	if err != nil {
-		...
-	}
+    ret, err := cache.Store("123", "key1", []byte("ABC"))
+    if err != nil {
+    	...
+    }
 
-	res, err := cache.Retrive("123", "key1")
-	value, _ := res.([]byte)
+    res, err := cache.Retrive("123", "key1")
+    value, _ := res.([]byte)
     fmt.Println(string(value))     // Result: "ABC"
 
 */
@@ -119,7 +119,7 @@ func (c *MemcachedCache) Configure(config *cconf.ConfigParams) {
 }
 
 // SetReferences are sets references to dependent components.
-// - references 	references to locate the component dependencies.
+//   - references 	references to locate the component dependencies.
 func (c *MemcachedCache) SetReferences(references cref.IReferences) {
 	c.connectionResolver.SetReferences(references)
 }
@@ -132,7 +132,7 @@ func (c *MemcachedCache) IsOpen() bool {
 
 // Open method are opens the component.
 // Parameters:
-// - correlationId 	(optional) transaction id to trace execution through call chain.
+//   - correlationId 	(optional) transaction id to trace execution through call chain.
 // Retruns: error or nil no errors occured.
 func (c *MemcachedCache) Open(correlationId string) error {
 	connections, err := c.connectionResolver.ResolveAll(correlationId)
@@ -198,8 +198,8 @@ func (c *MemcachedCache) checkOpened(correlationId string) (state bool, err erro
 // Retrieve method are retrieves cached value from the cache using its key.
 // If value is missing in the cache or expired it returns nil.
 // Parameters:
-// - correlationId     (optional) transaction id to trace execution through call chain.
-// - key               a unique value key.
+//   - correlationId     (optional) transaction id to trace execution through call chain.
+//   - key               a unique value key.
 // Retruns value *memcache.Item, err error
 // cached value or error.
 func (c *MemcachedCache) Retrieve(correlationId string, key string) (value interface{}, err error) {
@@ -219,10 +219,10 @@ func (c *MemcachedCache) Retrieve(correlationId string, key string) (value inter
 
 // Store method are stores value in the cache with expiration time.
 // Parameters:
-// - correlationId     (optional) transaction id to trace execution through call chain.
-// - key               a unique value key.
-// - value             a value to store.
-// - timeout           expiration timeout in milliseconds.
+//   - correlationId     (optional) transaction id to trace execution through call chain.
+//   - key               a unique value key.
+//   - value             a value to store.
+//   - timeout           expiration timeout in milliseconds.
 // Returns: error or nil for success
 func (c *MemcachedCache) Store(correlationId string, key string, value interface{}, timeout int64) (result interface{}, err error) {
 	state, err := c.checkOpened(correlationId)
@@ -245,8 +245,8 @@ func (c *MemcachedCache) Store(correlationId string, key string, value interface
 
 // Remove method are removes a value from the cache by its key.
 // Parameters:
-// - correlationId     (optional) transaction id to trace execution through call chain.
-// - key               a unique value key.
+//   - correlationId     (optional) transaction id to trace execution through call chain.
+//   - key               a unique value key.
 // Retruns: an error or nil for success
 func (c *MemcachedCache) Remove(correlationId string, key string) error {
 	state, err := c.checkOpened(correlationId)
