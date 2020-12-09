@@ -1,27 +1,9 @@
 # Memcached components for Pip.Services in Node.js Changelog
 
-## <a name="3.0.0"></a> 3.0.0 (2018-08-21) 
-
-### Breaking changes
-* Moved to a separate package
-
-## <a name="1.2.0"></a> 1.2.0 (2018-08-10) 
+## <a name="1.0.0"></a> 1.0.0 (2020-03-11) 
 
 ### Features
-* Added RedisCache
-* Added RedisLock
-
-## <a name="1.1.0"></a> 1.1.0 (2018-03-26) 
-
-### Features
-* Added PrometheusCounters and PrometheusMetricsService
-* Added labels to PrometheusCounters and PrometheusMetricsService
-
-## <a name="1.0.0"></a> 1.0.0 (2018-03-20) 
-
-### Features
-* **memcached** Added MemcachedCache
-* **memcached** Added MemcachedLock
-* **fluentd** Added FluentdLogger
-* **elasticsearch** Added ElasticSearchLogger
+* **build** standard factory for constructing components
+* **cahce** cache Components in Memcached
+* **lock** components of working with locks in Memcached
 
