@@ -285,6 +285,9 @@ func (c *MemcachedCache) Remove(correlationId string, key string) error {
 	if !state {
 		return err
 	}
-
-	return c.client.Delete(key)
+	err = c.client.Delete(key)
+	if err != nil && err == memcache.ErrCacheMiss {
+		err = nil
+	}
+	return err
 }
