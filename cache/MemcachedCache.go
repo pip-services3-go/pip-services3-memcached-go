@@ -1,6 +1,7 @@
 package cache
 
 import (
+	"encoding/json"
 	"strconv"
 	"time"
 
@@ -212,9 +213,40 @@ func (c *MemcachedCache) Retrieve(correlationId string, key string) (value inter
 		err = nil
 	}
 	if item != nil {
-		return item.Value, err
+		var value interface{}
+		err := json.Unmarshal(item.Value, &value)
+		if err != nil {
+			return nil, err
+		}
+		return value, nil
 	}
 	return nil, err
+}
+
+// Retrive cached value from the cache using its key and restore into reference object. If value is missing in the cache or expired it returns false.
+// Parameters:
+//   - correlationId string
+//   transaction id to trace execution through call chain.
+//   - key string   a unique value key.
+//   - refObj       pointer to object for restore
+// Returns bool, error
+func (c *MemcachedCache) RetrieveAs(correlationId string, key string, refObj interface{}) (bool, error) {
+	state, err := c.checkOpened(correlationId)
+	if !state {
+		return false, err
+	}
+	item, err := c.client.Get(key)
+	if err != nil && err == memcache.ErrCacheMiss {
+		err = nil
+	}
+	if item != nil {
+		err := json.Unmarshal(item.Value, refObj)
+		if err != nil {
+			return false, err
+		}
+		return true, nil
+	}
+	return false, err
 }
 
 // Store method are stores value in the cache with expiration time.
@@ -230,14 +262,14 @@ func (c *MemcachedCache) Store(correlationId string, key string, value interface
 		return nil, err
 	}
 	timeoutInSec := int32(timeout) / 1000
-	val, ok := value.([]byte)
-	if !ok {
-		return nil, cerr.NewError("MemcachedCache:Store:Can't convert value to []bytes")
-	}
 
+	jsonVal, err := json.Marshal(value)
+	if err != nil {
+		return nil, err
+	}
 	item := memcache.Item{
 		Key:        key,
-		Value:      val,
+		Value:      jsonVal,
 		Expiration: timeoutInSec,
 	}
 	return value, c.client.Set(&item)
