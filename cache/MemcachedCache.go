@@ -213,7 +213,12 @@ func (c *MemcachedCache) Retrieve(correlationId string, key string) (value inter
 		err = nil
 	}
 	if item != nil {
-		return item.Value, err
+		var value interface{}
+		err := json.Unmarshal(item.Value, &value)
+		if err != nil {
+			return nil, err
+		}
+		return value, nil
 	}
 	return nil, err
 }
@@ -283,6 +288,9 @@ func (c *MemcachedCache) Remove(correlationId string, key string) error {
 	if !state {
 		return err
 	}
-
-	return c.client.Delete(key)
+	err = c.client.Delete(key)
+	if err != nil && err == memcache.ErrCacheMiss {
+		err = nil
+	}
+	return err
 }
