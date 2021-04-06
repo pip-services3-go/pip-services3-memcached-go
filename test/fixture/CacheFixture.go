@@ -44,11 +44,10 @@ func (c *CacheFixture) TestStoreAndRetrieve(t *testing.T) {
 	assert.Equal(t, VALUE1, val)
 
 	var str string
-	ok, err := c.cache.RetrieveAs("", KEY2, &str)
-	assert.True(t, ok)
+	result, err := c.cache.RetrieveAs("", KEY2, &str)
+	assert.NotNil(t, result)
 	assert.Nil(t, err)
 	assert.Equal(t, VALUE2, str)
-
 }
 
 func (c *CacheFixture) TestRetrieveExpired(t *testing.T) {
@@ -65,15 +64,12 @@ func (c *CacheFixture) TestRetrieveExpired(t *testing.T) {
 	assert.Nil(t, val)
 
 	var str string
-	ok, err := c.cache.RetrieveAs("", KEY1, &str)
-	assert.False(t, ok)
+	result, err := c.cache.RetrieveAs("", KEY1, &str)
+	assert.Nil(t, result)
 	assert.Nil(t, err)
-	assert.Equal(t, str, "")
-
 }
 
 func (c *CacheFixture) TestRemove(t *testing.T) {
-
 	_, err := c.cache.Store("", KEY1, VALUE1, 1000)
 	assert.Nil(t, err)
 
@@ -85,8 +81,7 @@ func (c *CacheFixture) TestRemove(t *testing.T) {
 	assert.Nil(t, val)
 
 	var str string
-	ok, err := c.cache.RetrieveAs("", KEY1, &str)
-	assert.False(t, ok)
+	result, err := c.cache.RetrieveAs("", KEY1, &str)
+	assert.Nil(t, result)
 	assert.Nil(t, err)
-	assert.Equal(t, str, "")
 }

@@ -262,12 +262,23 @@ func (c *MemcachedCache) Store(correlationId string, key string, value interface
 		return nil, err
 	}
 	timeoutInSec := int32(timeout) / 1000
-	val, ok := value.([]byte)
-	if !ok {
-		val, err = json.Marshal(value)
-		if err != nil {
-			return nil, err
-		}
+
+	var val []byte
+
+	switch v := value.(type) {
+	case []byte:
+		val = v
+		break
+	case string:
+		val, err = json.Marshal(v)
+		break
+	default:
+		val, err = json.Marshal(v)
+		break
+	}
+
+	if err != nil {
+		return nil, err
 	}
 
 	item := memcache.Item{
