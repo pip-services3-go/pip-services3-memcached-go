@@ -80,7 +80,7 @@ type MemcachedLock struct {
 
 // NewMemcachedLock method are creates a new instance of this lock.
 func NewMemcachedLock() *MemcachedLock {
-	c := MemcachedLock{
+	c := &MemcachedLock{
 		connectionResolver: ccon.NewEmptyConnectionResolver(),
 		// maxKeySize:         250,
 		// maxExpiration:      2592000,
@@ -95,8 +95,8 @@ func NewMemcachedLock() *MemcachedLock {
 		//idle:   5000,
 		client: nil,
 	}
-	c.Lock = clock.InheritLock(&c)
-	return &c
+	c.Lock = clock.InheritLock(c)
+	return c
 }
 
 // Configure method are configures component by passing configuration parameters.
