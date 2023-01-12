@@ -1,5 +1,8 @@
 # Memcached components for Pip.Services in Node.js Changelog
 
+## <a name="1.1.1"></a> 1.1.1 (2023-01-12) 
+
+- Update dependencies
 ## <a name="1.0.1"></a> 1.0.0 (2021-03-05) 
 
 ### Bug Fixing

@@ -14,7 +14,7 @@
 
 
 
-<script>var goVersion = "go1.13.15";</script>
+<script>var goVersion = "go1.16.15";</script>
 <script src="../../lib/godoc/godocs.js" defer></script>
 </head>
 <body>
@@ -138,6 +138,9 @@
 					<dd>&nbsp; &nbsp; <a href="index.html#MemcachedCache.Retrieve">func (c *MemcachedCache) Retrieve(correlationId string, key string) (value interface{}, err error)</a></dd>
 				
 					
+					<dd>&nbsp; &nbsp; <a href="index.html#MemcachedCache.RetrieveAs">func (c *MemcachedCache) RetrieveAs(correlationId string, key string, result interface{}) (value interface{}, err error)</a></dd>
+				
+					
 					<dd>&nbsp; &nbsp; <a href="index.html#MemcachedCache.SetReferences">func (c *MemcachedCache) SetReferences(references cref.IReferences)</a></dd>
 				
 					
@@ -171,7 +174,7 @@
 		
 			
 			
-			<h2 id="MemcachedCache">type <a href="http://localhost:6060/src/cache/MemcachedCache.go?s=2201:2561#L55">MemcachedCache</a>
+			<h2 id="MemcachedCache">type <a href="http://localhost:6060/src/cache/MemcachedCache.go?s=2283:2657#L56">MemcachedCache</a>
 				<a class="permalink" href="index.html#MemcachedCache">&#xb6;</a>
 				
 				
@@ -246,7 +249,7 @@ fmt.Println(string(value))     // Result: &#34;ABC&#34;
 
 			
 				
-				<h3 id="NewMemcachedCache">func <a href="http://localhost:6060/src/cache/MemcachedCache.go?s=2633:2673#L72">NewMemcachedCache</a>
+				<h3 id="NewMemcachedCache">func <a href="http://localhost:6060/src/cache/MemcachedCache.go?s=2732:2772#L73">NewMemcachedCache</a>
 					<a class="permalink" href="index.html#NewMemcachedCache">&#xb6;</a>
 					
 					
@@ -262,7 +265,7 @@ NewMemcachedCache method are creates a new instance of this cache.
 
 			
 				
-				<h3 id="MemcachedCache.Close">func (*MemcachedCache) <a href="http://localhost:6060/src/cache/MemcachedCache.go?s=6089:6147#L174">Close</a>
+				<h3 id="MemcachedCache.Close">func (*MemcachedCache) <a href="http://localhost:6060/src/cache/MemcachedCache.go?s=6297:6355#L175">Close</a>
 					<a class="permalink" href="index.html#MemcachedCache.Close">&#xb6;</a>
 					
 					
@@ -280,7 +283,7 @@ Parameters:
 				
 			
 				
-				<h3 id="MemcachedCache.Configure">func (*MemcachedCache) <a href="http://localhost:6060/src/cache/MemcachedCache.go?s=3196:3258#L95">Configure</a>
+				<h3 id="MemcachedCache.Configure">func (*MemcachedCache) <a href="http://localhost:6060/src/cache/MemcachedCache.go?s=3325:3387#L96">Configure</a>
 					<a class="permalink" href="index.html#MemcachedCache.Configure">&#xb6;</a>
 					
 					
@@ -296,7 +299,7 @@ Configures component by passing configuration parameters.
 				
 			
 				
-				<h3 id="MemcachedCache.IsOpen">func (*MemcachedCache) <a href="http://localhost:6060/src/cache/MemcachedCache.go?s=4537:4575#L119">IsOpen</a>
+				<h3 id="MemcachedCache.IsOpen">func (*MemcachedCache) <a href="http://localhost:6060/src/cache/MemcachedCache.go?s=4690:4728#L120">IsOpen</a>
 					<a class="permalink" href="index.html#MemcachedCache.IsOpen">&#xb6;</a>
 					
 					
@@ -312,7 +315,7 @@ Returns true if the component has been opened and false otherwise.
 				
 			
 				
-				<h3 id="MemcachedCache.Open">func (*MemcachedCache) <a href="http://localhost:6060/src/cache/MemcachedCache.go?s=4791:4848#L127">Open</a>
+				<h3 id="MemcachedCache.Open">func (*MemcachedCache) <a href="http://localhost:6060/src/cache/MemcachedCache.go?s=4952:5009#L128">Open</a>
 					<a class="permalink" href="index.html#MemcachedCache.Open">&#xb6;</a>
 					
 					
@@ -333,7 +336,7 @@ Retruns: error or nil no errors occured.
 				
 			
 				
-				<h3 id="MemcachedCache.Remove">func (*MemcachedCache) <a href="http://localhost:6060/src/cache/MemcachedCache.go?s=8237:8308#L241">Remove</a>
+				<h3 id="MemcachedCache.Remove">func (*MemcachedCache) <a href="http://localhost:6060/src/cache/MemcachedCache.go?s=9557:9628#L287">Remove</a>
 					<a class="permalink" href="index.html#MemcachedCache.Remove">&#xb6;</a>
 					
 					
@@ -355,7 +358,7 @@ Retruns: an error or nil for success
 				
 			
 				
-				<h3 id="MemcachedCache.Retrieve">func (*MemcachedCache) <a href="http://localhost:6060/src/cache/MemcachedCache.go?s=6778:6876#L195">Retrieve</a>
+				<h3 id="MemcachedCache.Retrieve">func (*MemcachedCache) <a href="http://localhost:6060/src/cache/MemcachedCache.go?s=7007:7105#L196">Retrieve</a>
 					<a class="permalink" href="index.html#MemcachedCache.Retrieve">&#xb6;</a>
 					
 					
@@ -379,7 +382,31 @@ cached value or error.
 				
 			
 				
-				<h3 id="MemcachedCache.SetReferences">func (*MemcachedCache) <a href="http://localhost:6060/src/cache/MemcachedCache.go?s=4301:4368#L113">SetReferences</a>
+				<h3 id="MemcachedCache.RetrieveAs">func (*MemcachedCache) <a href="http://localhost:6060/src/cache/MemcachedCache.go?s=7837:7957#L223">RetrieveAs</a>
+					<a class="permalink" href="index.html#MemcachedCache.RetrieveAs">&#xb6;</a>
+					
+					
+				</h3>
+				<pre>func (c *<a href="index.html#MemcachedCache">MemcachedCache</a>) RetrieveAs(correlationId <a href="http://localhost:6060/pkg/builtin/#string">string</a>, key <a href="http://localhost:6060/pkg/builtin/#string">string</a>, result interface{}) (value interface{}, err <a href="http://localhost:6060/pkg/builtin/#error">error</a>)</pre>
+				<p>
+Retrieve method are retrieves cached value from the cache using its key.
+If value is missing in the cache or expired it returns nil.
+Parameters:
+</p>
+<pre>- correlationId     (optional) transaction id to trace execution through call chain.
+- key               a unique value key.
+</pre>
+<p>
+Retruns value *memcache.Item, err error
+cached value or error.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="MemcachedCache.SetReferences">func (*MemcachedCache) <a href="http://localhost:6060/src/cache/MemcachedCache.go?s=4448:4515#L114">SetReferences</a>
 					<a class="permalink" href="index.html#MemcachedCache.SetReferences">&#xb6;</a>
 					
 					
@@ -396,7 +423,7 @@ SetReferences are sets references to dependent components.
 				
 			
 				
-				<h3 id="MemcachedCache.Store">func (*MemcachedCache) <a href="http://localhost:6060/src/cache/MemcachedCache.go?s=7478:7608#L217">Store</a>
+				<h3 id="MemcachedCache.Store">func (*MemcachedCache) <a href="http://localhost:6060/src/cache/MemcachedCache.go?s=8665:8795#L249">Store</a>
 					<a class="permalink" href="index.html#MemcachedCache.Store">&#xb6;</a>
 					
 					
@@ -431,13 +458,13 @@ Returns: error or nil for success
 
 
 <div id="footer">
-Build version go1.13.15.<br>
+Build version go1.16.15.<br>
 Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
 the content of this page is licensed under the
 Creative Commons Attribution 3.0 License,
 and code is licensed under a <a href="http://localhost:6060/LICENSE">BSD license</a>.<br>
-<a href="http://localhost:6060/doc/tos.html">Terms of Service</a> |
-<a href="http://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
+<a href="https://golang.org/doc/tos.html">Terms of Service</a> |
+<a href="https://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
 </div>
 
 </div><!-- .container -->
